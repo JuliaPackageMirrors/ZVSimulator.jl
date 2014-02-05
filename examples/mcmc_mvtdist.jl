@@ -13,4 +13,7 @@ mcmodel = model(MvTDist(df, zeros(npars), c), init=zeros(npars))
 samplers = [HMCDA() for i in 1:5]
 tasks = mcmodel * samplers * SerialMC(steps=10000, burnin=1000)
 
-zvout = psim_vrf(sample_serialmc_zvmean, tasks; diagnostics=["rate"])
+results = psim_vrf(sample_serialmc_zvmean, tasks; diagnostics=["rate"])
+
+# writedlm_vrf(results, "./", ' ')
+# writedlm_reformat("_means.txt", "./_means_pprint.txt", fill("%.3e", 3))

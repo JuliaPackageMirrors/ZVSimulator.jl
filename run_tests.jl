@@ -1,4 +1,4 @@
-my_tests = ["examples/mvtdist.jl"]
+my_tests = ["examples/mcmc_mvtdist.jl"]
 
 println("Running tests:")
 
