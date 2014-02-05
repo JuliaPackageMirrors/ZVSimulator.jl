@@ -1,10 +1,8 @@
 # Write the output of psim_vrf to files
 function writedlm_vrf(results::Dict{ASCIIString, Any}, fpath::ASCIIString, dlm)
-  @assert isdir(dirname(fpath)) "$(dirname(fpath)) is not a directory"
-
   for i in keys(results)
     if isa(results[i], AbstractArray)
-      writedlm(joinpath(fpath, "_"*i*".txt"), results[i], dlm)
+      writedlm(fpath*"_"*i*".txt", results[i], dlm)
     end
   end
 end
@@ -12,9 +10,6 @@ end
 # Read file and rewrite it into a new one with specified format
 function writedlm_reformat(infile::ASCIIString, outfile::ASCIIString, outfmt::Array{ASCIIString, 1};
   indlm::ASCIIString=" ", outdlm::ASCIIString=" ", outendline::ASCIIString="\n")
-  @assert isfile(infile) "$infile is not a file"
-  @assert isdir(dirname(outfile)) "$(dirname(outfile)) is not a directory"
-
   instream, outstream = open(infile), open(outfile, "w")
 
   while !eof(instream)
