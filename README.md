@@ -7,10 +7,10 @@ random sampling via simulation.
 
 #### Package Overview
 
-The `ZVSimulator` is used for assessing the effectiveness of the zero variance (ZV) principle on arbitrary MCMC samplers
-and on arbitrary univariate or multivariate distributions. The simulation-based evaluation of ZV's effectiveness is
-made by estimating the variance reduction factor VRF, which is the ratio of the variance of the original estimator over
-the variance of the ZV estimator.
+The `ZVSimulator` is used for assessing the effectiveness of the zero variance principle on arbitrary MCMC samplers
+or on arbitrary univariate or multivariate distributions. The simulation-based evaluation of ZV's effectiveness is
+made by estimating the variance reduction factor (VRF), which is the ratio of the variance of the original estimator
+over the variance of the ZV estimator.
 
 To compute the variance of the original estimator of a summary statistic, several Monte Carlo chains are simulated from
 a given MCMC sampler or several sets of independently and identically distributed (i.i.d.) samples are randomly drawn
@@ -32,17 +32,17 @@ ZV coefficients are calculated using the relevant ZV functions in `MCMC`.
 - Assessment of ZV for any summary statistic by passing a function that transforms the simulated samples.
 - Lower level functionality, which allows assessing ZV for any user-defined random process leaving room for future
 developments of ZV on more stochastic models.
-- Parallel implementation of the `ZVSimulator`, which allows for faster computations on several workers.
+- Parallel implementation of the `ZVSimulator`, which provides faster computations on several workers.
 
 #### Examples
 
-### ZV for a univariate distribution
+##### ZV for a univariate distribution
 
-As an example of how one can compute the VRFs for a univariate distribution, consider a t-distrubion with 5 degrees
+As an example of how one can compute the VRFs for a univariate distribution, consider a t-distribution with 5 degrees
 of freedom. The distribution is defined by calling `TDist(5.)` using the relevant constructor from `Distributions`.
 Then the `psim_rand_vrf()` function is invoked on the t-density, from which 100 sample sets are drawn, each of size
-1000. Note that if julia is started by `julia -p 4` for isntance, then the simulation will run on 4 workers on the
-local machine. The code for this example can be found in `examples/rand_tdist.jl`.
+1000. Note that if julia is started by `julia -p 4` for instance, then the simulation will run on 4 workers on the
+local machine. The code for this example is the following and can also be found in `examples/rand_tdist.jl`:
 
 ```
 using Distributions, ZVSimulator
@@ -52,11 +52,11 @@ d = TDist(5.)
 results = psim_rand_vrf(d, nsets=100, nsamples=1000)
 ```
 
-### ZV for MCMC
+##### ZV for MCMC
 
 `examples/mcmc_mvtdist.jl` provides an example of computing the VRFs for a Monte Carlo simulation from a multivariate
-Student target distribution. The `MCMCTask`s are defined by usind the (model, sampler, runner) triplet-interface of
-the `MCMC` package. Then `psim_serialmc_vrf()` is invoved on these tasks to calculate the VRFs by simulating 100 chains,
+Student target distribution. The MCMC tasks are defined by usind the (model, sampler, runner) triplet-interface of
+the `MCMC` package. Then `psim_serialmc_vrf()` is invoked on these tasks to calculate the VRFs by simulating 100 chains,
 each consisting of 10000 iterations of which the first 1000 are discarded as burnin.
 
 ```
