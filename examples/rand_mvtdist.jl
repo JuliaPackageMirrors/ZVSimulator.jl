@@ -9,9 +9,9 @@ end
 df, npars, a = 5., 4, 0.25
 c = ((df-2)/df)*C(npars, a)
 
-distributions = [MvTDist(df, zeros(npars), c) for i = 1:5]
+d = MvTDist(df, zeros(npars), c)
 
-results = psim_rand_vrf(distributions)
+results = psim_rand_vrf(d, nsets=5)
 
 # writedlm_vrf(results, "./", ' ')
 # writedlm_reformat("_means.txt", "./_means_pprint.txt", fill("%.3e", 3))
