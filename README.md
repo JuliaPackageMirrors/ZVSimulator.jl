@@ -55,7 +55,7 @@ results = psim_rand_vrf(d, nsets=100, nsamples=1000)
 ##### ZV for MCMC
 
 `examples/mcmc_mvtdist.jl` provides an example of computing the VRFs for a Monte Carlo simulation from a multivariate
-Student target distribution. The MCMC tasks are defined by usind the (model, sampler, runner) triplet-interface of
+Student target distribution. The MCMC tasks are defined by using the (model, sampler, runner) triplet-interface of
 the `MCMC` package. Then `psim_serialmc_vrf()` is invoked on these tasks to calculate the VRFs by simulating 100 chains,
 each consisting of 10000 iterations of which the first 1000 are discarded as burnin.
 
