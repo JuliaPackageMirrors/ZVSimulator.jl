@@ -3,7 +3,7 @@ function mean_of_zvmean(m)
   lzv = isnan((m[1].means)[1, 2]) ? false : true
   qzv = isnan((m[1].means)[1, 3]) ? false : true
   cols = (lzv ? (qzv ? (1:3) : (1:2)) : (qzv ? (1:2:3) : (1:1)))
-  nmethods = cols.len
+  nmethods = length(cols)
   mm = zeros(Float64, size(m[1].means, 1), nmethods)
 
   for i in 1:nsets
@@ -18,7 +18,7 @@ function var_of_zvmean(m; means::Union(Matrix{Float64}, Nothing)=nothing)
   lzv = isnan((m[1].means)[1, 2]) ? false : true
   qzv = isnan((m[1].means)[1, 3]) ? false : true
   cols = (lzv ? (qzv ? (1:3) : (1:2)) : (qzv ? (1:2:3) : (1:1)))
-  nmethods = cols.len
+  nmethods = length(cols)
   v = zeros(Float64, size(m[1].means, 1), nmethods)
 
   mm = means == nothing ? mean_of_zvmean(m) : means
