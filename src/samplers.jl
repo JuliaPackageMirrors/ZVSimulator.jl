@@ -17,7 +17,7 @@ function sample_rand(d::MultivariateDistribution, nsamples::Int64)
 
   for i = 1:nsamples
     samples[:, i] = rand(d)
-    gradients[:, i] = gradloglik(d, samples[:, i])
+    gradients[:, i] = gradlogpdf(d, samples[:, i])
   end
 
   ZVSample(samples', gradients')
@@ -28,7 +28,7 @@ function sample_rand(d::UnivariateDistribution, nsamples::Int64)
 
   for i = 1:nsamples
     samples[i] = rand(d)
-    gradients[i] = gradloglik(d, samples[i])
+    gradients[i] = gradlogpdf(d, samples[i])
   end
 
   ZVSample(reshape(samples, nsamples, 1), reshape(gradients, nsamples, 1))
